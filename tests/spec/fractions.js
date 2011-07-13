@@ -79,6 +79,29 @@ describe("fmatrix", function() {
 		it("should be 0 on singular matrices", function() {
 			expect(s.det()).equals(zero);
 		});
+
+		it("should be antisymmetric", function() {
+			var c = a.clone();
+			// swap a random pair of columns
+			var cols = distrand(2, 0, c.dim-1);
+			for(i = 0; i < c.dim; i++)
+			{
+				var t = c[i][cols[0]];
+				c[i][cols[0]] = c[i][cols[1]];
+				c[i][cols[1]] = t;
+			}
+			expect(c.det().prod(-1)).equals(a.det());
+		});
+
+		it("should be multilinear", function() {
+			var c = a.clone();
+			// multiply a random column by a random constant
+			var p = randfrac(5);
+			var col = rand(0, c.dim-1);
+			for(var i = 0; i < c.dim; i++)
+				c[i][col].prod(p);
+			expect(c.det()).equals(a.det().prod(p));
+		});
 	});
 
 	describe("transpose", function() {
