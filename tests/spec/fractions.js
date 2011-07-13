@@ -31,19 +31,32 @@ describe("frac", function() {
 });
 
 describe("fmatrix", function() {
-	var one, zero;
-	var eye;
-	var a, b;
+	var one, zero; // fractions
+	var eye; // identity
+	var a, b; // random matrices
+	var s; // a singular matrix
 
 	beforeEach(function () {
 		one = new frac(1,1);
 		zero = new frac(0,1);
+
 		eye = new fmatrix(3);
+		eye.set(one,zero,zero,zero,one,zero,zero,zero,one);
+
 		a = new fmatrix(3);
 		b = new fmatrix(3);
-		eye.set(one,zero,zero,zero,one,zero,zero,zero,one);
 		a.setrand(4);
 		b.setrand(4);
+
+		var i, p = randfrac(5), q = randfrac(5);
+		s = new fmatrix(3);
+		s.setrand(4);
+		// make the first row a combination of the others
+		for(i = 0; i < 3; i++)
+		{
+			var r = s[i][1].clone().prod(p);
+			s[i][0] = s[i][2].clone().prod(q).add(r.top, r.bot);
+		}
 	});
 
 	describe("identity matrix", function() {
@@ -61,6 +74,10 @@ describe("fmatrix", function() {
 		it("should be a homomorphism", function() {
 			var c = b.times(a);
 			expect(c.det()).equals(b.det().prod(a.det()));
+		});
+
+		it("should be 0 on singular matrices", function() {
+			expect(s.det()).equals(zero);
 		});
 	});
 
