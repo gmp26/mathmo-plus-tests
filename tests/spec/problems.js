@@ -95,11 +95,11 @@ describe("LaTeX syntax", function() {
 		'makeProductMoment'
 	];
 
-	for(k in makers)
+	for(var k = 0; k < makers.length; k++)
 	{
 		describe(makers[k], function() {
 			var qa;
-			var i = k; // bypass call-by-name
+			var i = k; // save the value of k in the closure
 
 			beforeEach(function() {
 				qa = window[makers[i]]();
