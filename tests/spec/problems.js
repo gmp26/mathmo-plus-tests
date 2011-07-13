@@ -39,72 +39,76 @@ beforeEach(function() {
 	});
 });
 
-var makers = [
-	'makePartial',
-	'makeBinomial2',
-	'makePolyInt',
-	'makeTrigInt',
-	'makeVector',
-	'makeLines',
-	'makeIneq',
-	'makeAP',
-	'makeFactor',
-	'makeQuadratic',
-	'makeComplete',
-	'makeBinExp',
-	'makeLog',
-	'makeStationary',
-	'makeTriangle',
-	'makeCircle',
-	'makeSolvingTrig',
-	'makeVectorEq',
-	'makeImplicit',
-	'makeChainRule',
-	'makeProductRule',
-	'makeQuotientRule',
-	'makeGP',
-	'makeModulus',
-	'makeTransformation',
-	'makeComposition',
-	'makeParametric',
-	'makeImplicitFunction',
-	'makeIntegration',
-	'makeDE',
-	'makePowers',
-	'makeCArithmetic',
-	'makeCPolar',
-	'makeDETwoHard',
-	'makeMatrix2',
-	'makeTaylor',
-	'makePolarSketch',
-	'makeMatrix3',
-	'makeFurtherVector',
-	'makeNewtonRaphson',
-	'makeFurtherIneq',
-	'makeSubstInt',
-	'makeRevolution',
-	'makeMatXforms',
-	'makeDiscreteDistn',
-	'makeContinDistn',
-	'makeHypTest',
-	'makeConfidInt',
-	'makeChiSquare',
-	'makeProductMoment'
-];
+describe("LaTeX syntax", function() {
+	// a list of functions that are supposed to produce pairs [q,a]
+	// such that q and a both pass the syntax check
+	var makers = [
+		'makePartial',
+		'makeBinomial2',
+		'makePolyInt',
+		'makeTrigInt',
+		'makeVector',
+		'makeLines',
+		'makeIneq',
+		'makeAP',
+		'makeFactor',
+		'makeQuadratic',
+		'makeComplete',
+		'makeBinExp',
+		'makeLog',
+		'makeStationary',
+		'makeTriangle',
+		'makeCircle',
+		'makeSolvingTrig',
+		'makeVectorEq',
+		'makeImplicit',
+		'makeChainRule',
+		'makeProductRule',
+		'makeQuotientRule',
+		'makeGP',
+		'makeModulus',
+		'makeTransformation',
+		'makeComposition',
+		'makeParametric',
+		'makeImplicitFunction',
+		'makeIntegration',
+		'makeDE',
+		'makePowers',
+		'makeCArithmetic',
+		'makeCPolar',
+		'makeDETwoHard',
+		'makeMatrix2',
+		'makeTaylor',
+		'makePolarSketch',
+		'makeMatrix3',
+		'makeFurtherVector',
+		'makeNewtonRaphson',
+		'makeFurtherIneq',
+		'makeSubstInt',
+		'makeRevolution',
+		'makeMatXforms',
+		'makeDiscreteDistn',
+		'makeContinDistn',
+		'makeHypTest',
+		'makeConfidInt',
+		'makeChiSquare',
+		'makeProductMoment'
+	];
 
-for(k = 0; k < makers.length; k++)
-{
-	describe(makers[k], function() {
-		var qa;
-		var i = k; // bypass call-by-name
+	for(k in makers)
+	{
+		describe(makers[k], function() {
+			var qa;
+			var i = k; // bypass call-by-name
 
-		beforeEach(function() {
-			qa = window[makers[i]]();
+			beforeEach(function() {
+				qa = window[makers[i]]();
+			});
+
+			it("should produce correct LaTeX", function() {
+				expect(qa[0]).syntaxCorrect();
+				expect(qa[1]).syntaxCorrect();
+			});
 		});
-
-		it("should produce correct LaTeX", function() {
-			expect(qa[0]).syntaxCorrect();
-			expect(qa[1]).syntaxCorrect();
-		});
-	});
-}
+	}
+});
