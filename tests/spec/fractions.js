@@ -51,7 +51,7 @@ describe("fmatrix", function() {
 		var i, p = randfrac(5), q = randfrac(5);
 		s = new fmatrix(3);
 		s.setrand(4);
-		// make the first row a combination of the others
+		// make the first column a combination of the others
 		for(i = 0; i < 3; i++)
 		{
 			var r = s[i][1].clone().prod(p);
