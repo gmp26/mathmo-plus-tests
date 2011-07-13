@@ -49,11 +49,11 @@ describe("fmatrix", function() {
 	describe("identity matrix", function() {
 		it("should have trace = dim", function() {
 			var df = new frac(eye.dim);
-			expect(eye.tr().equals(df)).toBeTruthy();
+			expect(eye.tr()).equals(df);
 		});
 
 		it("should have det = 1", function() {
-			expect(eye.det().equals(one)).toBeTruthy();
+			expect(eye.det()).equals(one);
 		});
 	});
 
