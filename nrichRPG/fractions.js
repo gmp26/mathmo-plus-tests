@@ -73,6 +73,24 @@ function randfrac(max)
 function fmatrix(dim)
 {
 	this.dim=dim;
+	this.zero=function()
+	{
+		for(var i=0;i<this.dim;i++)
+		{
+			this[i]=new Array(this.dim);
+			for(var j=0;j<this.dim;j++)
+				this[i][j]=new frac(0);
+		}
+	}
+	this.clone=function()
+	{
+		var r=new fmatrix(this.dim);
+		r.zero();
+		for(var i=0;i<this.dim;i++)
+			for(var j=0;j<this.dim;j++)
+				r[i][j]=this[i][j].clone();
+		return(r);
+	}
 	this.set=function()
 	{
 		var n=Math.round(Math.sqrt(this.set.arguments.length));
