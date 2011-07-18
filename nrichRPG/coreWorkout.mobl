@@ -276,6 +276,7 @@ style mixin answerDisplayStyleMixin($bg, $border) {
 	font-size: 17px;
 	color: #666666;
 	padding: 10px;
+	white-space: normal;
 }
 
 style agreeStyle {
