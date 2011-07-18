@@ -1,5 +1,8 @@
 beforeEach(function() {
 	this.addMatchers({
+		nonEmpty: function() {
+			return this.actual.length > 0;
+		},
 		syntaxCorrect: function() {
 			var pieces = this.actual.split('$$');
 
@@ -111,4 +114,17 @@ describe("LaTeX syntax", function() {
 			});
 		});
 	}
+});
+
+describe("makeMatrix2", function() {
+	var qa;
+
+	beforeEach(function() {
+		qa = makeMatrix2();
+	});
+
+	// when an error occurs, it doesn't produce an answer
+	it("should produce an answer", function() {
+		expect(qa[1]).nonEmpty();
+	});
 });
