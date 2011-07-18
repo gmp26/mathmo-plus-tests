@@ -1708,12 +1708,23 @@ function makeDETwoHard()
 
 function makeMatrix2()
 {
-	var A=new matrix(2);A.setrand(6);
-	var B=new matrix(2);B.setrand(6);
-	if(B.det()===0) {B[0][0]++;}
-	if(B.det()===0) {B[0][1]++;}
-	if(B.det()===0) {B[0][1]--; B[1][0]++;}
-	if(B.det()===0) {alert('Bad math things happening in makeMatrix2(), eek!');} // THIS SHOULD NEVER EVER EVER HAPPEN
+	var A=new fmatrix(2);A.setrand(6);
+	var B=new fmatrix(2);B.setrand(6);
+
+	var i;
+	for(i = 0; i < B.dim && B.det().top === 0; i++)
+	{
+		// A + tI can be singular for at most n values of t
+		// (i.e. eigenvalues of A)
+		for(var j = 0; j < B.dim; j++)
+			B[j][j].add(1,1);
+	}
+
+	// This shouldn't ever happen unless the matrix API changes somehow
+	// but let's catch it anyway because infinite loops are annoying to debug
+	if(i >= B.dim)
+		return ['<strong>Error:</strong> makeMatrix2 failed to make a non-singular matrix', ''];
+
 	var qString="Let $$A="+A.write()+", B="+B.write()+".$$";
 	qString += "Compute: <ul style=\"list-style-type: lower-roman;\">";
 	qString += "<li>\\(A+B\\)</li>";
@@ -2072,7 +2083,7 @@ function makeMatXforms()
 {
 	var a=rand(1, 3);
 	var xfms=new Array(5);
-	for(var i=0;i<5;i++) {xfms[i]=new matrix(2);}
+	for(var i=0;i<5;i++) {xfms[i]=new fmatrix(2);}
 	xfms[0].set(Math.cos(a*Math.PI/2), -Math.sin(a*Math.PI/2), Math.sin(a*Math.PI/2), Math.cos(a*Math.PI/2));
 	xfms[1].set(Math.cos(a*Math.PI/2), Math.sin(a*Math.PI/2), Math.sin(a*Math.PI/2), -Math.cos(a*Math.PI/2));
 	xfms[2].set(1, a, 0, 1);
