@@ -93,22 +93,25 @@ function fmatrix(dim)
 	}
 	this.set=function()
 	{
-		var n=Math.round(Math.sqrt(this.set.arguments.length));
-		if(this.set.arguments.length==n*n)
+		var args = this.set.arguments;
+		var n = this.dim;
+		if(args.length === n*n)
 		{
-			this.dim=n;
-			for(var i=0;i<n;i++)
+			this.zero();
+			for(var i = 0; i < n; i++)
 			{
-				this[i]=new Array(this.dim);
-				for(var j=0;j<n;j++)
+				for(var j = 0; j < n; j++)
 				{
-					this[i][j]=this.set.arguments[(i*n)+j].clone();
+					if(typeof(args[(i*n)+j]) === "number")
+						this[i][j] = new frac(args[(i*n)+j]);
+					else
+						this[i][j] = args[(i*n)+j].clone();
 				}
 			}
 		}
 		else
 		{
-			alert('Non-square number of elements sent to matrix.set()!');
+			alert('Wrong number of elements sent to fmatrix.set()!');
 		}
 	}
 	this.setrand=function(maxentry)
