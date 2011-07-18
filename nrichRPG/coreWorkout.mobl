@@ -15,7 +15,6 @@ style helpStyle {
 	font-size: 20px;
 	color: #666666;
 	padding:10px;
-	word-break: normal;
 }
 
 style deleteStyle {
@@ -258,7 +257,6 @@ style questionStyle {
 	font-size: 17px;
 	color: #000000;
 	padding:10px;
-	word-break: normal;
 }
 
 style answerStyle {
@@ -270,7 +268,6 @@ style answerStyle {
 	font-size: 17px;
 	color: #666666;
 	padding:10px;
-	word-break: normal;
 }
 
 style agreeStyle {
@@ -282,7 +279,6 @@ style agreeStyle {
 	font-size: 17px;
 	color: #666666;
 	padding:10px;
-	word-break: normal;
 }
 
 style disagreeStyle {
@@ -294,7 +290,6 @@ style disagreeStyle {
 	font-size: 17px;
 	color: #666666;
 	padding:10px;
-	word-break: normal;
 }
 
 style plotStyle {
