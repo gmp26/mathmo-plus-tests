@@ -270,26 +270,20 @@ style answerStyle {
 	padding:10px;
 }
 
-style agreeStyle {
-	background-color:#F0FFF0;
-	border: 2px solid #CCFFCC;
-/*	border-left-width:0px;
-	border-right-width:0px;
-	border-bottom-width:0px;*/
+style mixin answerDisplayStyleMixin($bg, $border) {
+	background-color: $bg;
+	border: 2px solid $border;
 	font-size: 17px;
 	color: #666666;
-	padding:10px;
+	padding: 10px;
+}
+
+style agreeStyle {
+	answerDisplayStyleMixin(#F0FFF0, #CCFFCC);
 }
 
 style disagreeStyle {
-	background-color:#FFF0F0;
-	border: 2px solid #FFCCCC;
-/*	border-left-width:0px;
-	border-right-width:0px;
-	border-bottom-width:0px;*/
-	font-size: 17px;
-	color: #666666;
-	padding:10px;
+	answerDisplayStyleMixin(#FFF0F0, #FFCCCC);
 }
 
 style plotStyle {
