@@ -283,10 +283,6 @@ function makeVector()
 // Lines in 3D
 function makeLines()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	var a1=randnz(3);
 	var b1=randnz(3);
 	var c1=randnz(3);
@@ -492,10 +488,6 @@ function makeIneq()
 
 function makeAP()
 {
-//	if(!Module("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	var m=rand(2,6);
 	var n=rand(m+2,11);
 	var k=rand(Math.max(n+3,10),40);
@@ -569,10 +561,6 @@ function makeFactor()
 
 function makeQuadratic()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	var qString="Find the real roots, if any, of$$";
 	var aString;
 	if(rand())
@@ -651,10 +639,6 @@ function makeComplete()
 
 function makeBinExp()
 {
-//	if(!requireModule("Frac_Polynomials"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	var a=rand(1,3);
 	var b=randnz(2);
 	var n=rand(2,5);
@@ -675,10 +659,6 @@ function makeBinExp()
 
 function makeLog()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	function makeLog1()
 	{
 		var a=pickrand(2,3,5);
@@ -728,10 +708,6 @@ function makeLog()
 
 function makeStationary()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	function makeStationary2()
 	{
 		var p=new poly(2);
@@ -773,10 +749,6 @@ function makeStationary()
 
 function makeTriangle()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	function makeTriangle1()
 	{
 		var a=rand(3,8);
@@ -850,10 +822,6 @@ function makeTriangle()
 
 function makeCircle()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	var r=rand(2,8);
 	var bot=rand(2,9);
 	var top=rand(1,2*bot-1);
@@ -872,10 +840,6 @@ function makeCircle()
 
 function makeSolvingTrig()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	var A=pickrand(1,3,4,5);
 	var alpha=pickrand(3,4,6);
 	var c=new frac(A,2);
@@ -914,10 +878,6 @@ function makeVectorEq()
 
 function makeImplicit()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	if(rand())
 	{
 		var a1=rand(1,3);
@@ -1084,10 +1044,6 @@ function makeQuotientRule()
 
 function makeGP()
 {
-//	if(!requireModule("Fractions"))
-//	{
-//		alert("Missing required module!<br>This problem is unlikely to work correctly.");
-//	}
 	if(rand())
 	{
 		var a=randnz(8);
@@ -1715,6 +1671,8 @@ function makeMatrixQ(dim,max)
 	I.zero();
 	for(var i = 0; i < I.dim; i++)
 		I[i][i].set(1,1);
+
+	throw new Error("makeMatrixQ: I don't like you.");
 
 	// A + tI can be singular for at most n values of t
 	// (i.e. eigenvalues of A)

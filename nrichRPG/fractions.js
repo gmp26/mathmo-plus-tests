@@ -111,7 +111,7 @@ function fmatrix(dim)
 		}
 		else
 		{
-			alert('Wrong number of elements sent to fmatrix.set()!');
+			throw new Error('Wrong number of elements sent to fmatrix.set()!');
 		}
 	}
 	this.setrand=function(maxentry)
@@ -129,7 +129,7 @@ function fmatrix(dim)
 	{
 		if(this.dim!=a.dim)
 		{
-			alert('Size mismatch matrices sent to matrix.add()!');
+			throw new Error('Size mismatch matrices sent to matrix.add()!');
 		}
 		else
 		{
@@ -149,7 +149,7 @@ function fmatrix(dim)
 	{
 		if(this.dim!=a.dim) // since we only deal in square matrices, they have to be the same size
 		{
-			alert('Size mismatch matrices sent to matrix.times()!');
+			throw new Error('Size mismatch matrices sent to matrix.times()!');
 		}
 		else
 		{
@@ -230,7 +230,7 @@ function fmatrix(dim)
 		var d=this.det();
 		if(d.top==0)
 		{
-			alert('Singular matrix sent to matrix.inv()!');
+			throw new Error('Singular matrix sent to matrix.inv()!');
 		}
 		else
 		{

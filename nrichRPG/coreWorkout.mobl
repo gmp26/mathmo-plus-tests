@@ -107,8 +107,8 @@ function topicName(tid:String):String {
 }
 
 function topicAdded(tid:String):void {
-	makeQA(tid);
-	alert(topicName(tid) + " added");
+	if(makeQA(tid).length > 0)
+		alert(topicName(tid) + " added");
 }
 
 control topicLabel(tid:String) {
@@ -420,12 +420,15 @@ control showQA(qa:QA) {
 		}, style=delStyle, pushedStyle=delPushedStyle)
 		
 		sideButton("New", onclick={
-			var qa2:QA = makeQA(qa.topic);
-			var qnum:Num = qa.number;
-			remove(qa);
-			qa = qa2;
-			qa.number = qnum;
-			renderQA(qa);	
+			var qa2:[QA] = makeQA(qa.topic);
+			if(qa2.length > 0)
+			{
+				var qnum:Num = qa.number;
+				remove(qa);
+				qa = qa2[0];
+				qa.number = qnum;
+				renderQA(qa);
+			}
 		},
 		style=delStyle, pushedStyle=delPushedStyle)
 	}
@@ -457,9 +460,11 @@ external sync function initStatsTopicMap(map:Map<String,String>):void
 
 var max:Num = 0;
 
-
-function makeQA(tid:String):QA {
-	//var topicMap:Map<String,String> = topicMapForId(tid);
+// Return empty list if there's an error. Otherwise, singleton list of new QA.
+function makeQA(tid:String):[QA] {
+	var q_and_A:Array<String> = makeProblem(tid);
+	if(q_and_A.length == 0)
+		return [];
 
 	var qa = QA();
 	var qas:Collection<QA> = QA.all();
@@ -467,7 +472,6 @@ function makeQA(tid:String):QA {
 		max = Math.max(max, item.number);
 	}
 	qa.number = max + 1;
-	var q_and_A:Array<String> = makeProblem(tid);
 	qa.question = q_and_A[0];
 	qa.answer = q_and_A[1];
 	qa.topic = tid;  //q_and_A[2];
@@ -477,7 +481,7 @@ function makeQA(tid:String):QA {
 	qa.done = false;
 	add(qa);
 	
-	return qa;
+	return [qa];
 }
 
 
@@ -612,6 +616,14 @@ function makeQA(tid:String):QA {
 	};
 
 	__ns.makeProblem = function(tid) {
-		return __ns.makers[tid]();
+		try
+		{
+			return __ns.makers[tid]();
+		}
+		catch(err)
+		{
+			alert(err.message);
+			return [];
+		}
 	};
 </javascript>

@@ -239,10 +239,7 @@ function distrandnz(n, min, max)
 function ord(n)
 {
 	if(n<0)
-	{
-		alert("negative ordinal requested from ord()");
-		return("negative!");
-	}
+		throw new Error("negative ordinal requested from ord()");
 	if(Math.floor(n/10)==1)
 		return(n+"th");
 	switch(n%10)
@@ -267,10 +264,7 @@ function ord(n)
 function ordt(n)
 {
 	if(n<0)
-	{
-		alert("negative ordinal requested from ord()");
-		return("negative!");
-	}
+		throw new Error("negative ordinal requested from ord()");
 	if(n<=12)
 		return(["zeroth","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh","twelfth"][n]);
 	return ord(n);
@@ -281,7 +275,8 @@ function sqroot(n)
 {
 	var that = this;
 	
-	if(n!=Math.floor(n)) alert("non-integer sent to square root");
+	if(n!=Math.floor(n))
+		throw new Error("non-integer sent to square root");
 	var a=1;
 	for(var i=2;i*i<=n;i++)
 	{
