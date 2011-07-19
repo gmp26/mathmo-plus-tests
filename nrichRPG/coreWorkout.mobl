@@ -107,7 +107,7 @@ function topicName(tid:String):String {
 }
 
 function topicAdded(tid:String):void {
-	if(makeQA(tid).length > 0)
+	if(makeQA(tid) != null)
 		alert(topicName(tid) + " added");
 }
 
@@ -420,12 +420,12 @@ control showQA(qa:QA) {
 		}, style=delStyle, pushedStyle=delPushedStyle)
 		
 		sideButton("New", onclick={
-			var qa2:[QA] = makeQA(qa.topic);
-			if(qa2.length > 0)
+			var qa2:QA = makeQA(qa.topic);
+			if(qa2 != null)
 			{
 				var qnum:Num = qa.number;
 				remove(qa);
-				qa = qa2[0];
+				qa = qa2;
 				qa.number = qnum;
 				renderQA(qa);
 			}
@@ -460,11 +460,11 @@ external sync function initStatsTopicMap(map:Map<String,String>):void
 
 var max:Num = 0;
 
-// Return empty list if there's an error. Otherwise, singleton list of new QA.
-function makeQA(tid:String):[QA] {
+// Can return null if there's an error.
+function makeQA(tid:String):QA {
 	var q_and_A:Array<String> = makeProblem(tid);
 	if(q_and_A.length == 0)
-		return [];
+		return null;
 
 	var qa = QA();
 	var qas:Collection<QA> = QA.all();
@@ -481,7 +481,7 @@ function makeQA(tid:String):[QA] {
 	qa.done = false;
 	add(qa);
 	
-	return [qa];
+	return qa;
 }
 
 
