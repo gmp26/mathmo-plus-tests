@@ -1706,26 +1706,30 @@ function makeDETwoHard()
 	return qa;
 }
 
-function makeMatrix2()
+function makeMatrixQ(dim,max)
 {
-	var A=new fmatrix(2);A.setrand(6);
-	var B=new fmatrix(2);B.setrand(6);
+	var A=new fmatrix(dim);A.setrand(max);
+	var B=new fmatrix(dim);B.setrand(max);
+	var I=new fmatrix(dim);
 
-	var i;
-	for(i = 0; i < B.dim && B.det().top === 0; i++)
+	I.zero();
+	for(var i = 0; i < I.dim; i++)
+		I[i][i].set(1,1);
+
+	// A + tI can be singular for at most n values of t
+	// (i.e. eigenvalues of A)
+	// Hence the throw statement should never be encountered, but if the
+	// matrix API changes or something I'd rather be debugging an
+	// exception than an infinite loop.
+	for(var i = 0; B.det().top === 0; i++)
 	{
-		// A + tI can be singular for at most n values of t
-		// (i.e. eigenvalues of A)
-		for(var j = 0; j < B.dim; j++)
-			B[j][j].add(1,1);
+		if(i >= B.dim)
+			throw new Error('makeMatrixQ: failed to make a non-singular matrix');
+
+		B = B.add(I);
 	}
 
-	// This shouldn't ever happen unless the matrix API changes somehow
-	// but let's catch it anyway because infinite loops are annoying to debug
-	if(i >= B.dim)
-		throw 'makeMatrix failed to make a non-singular matrix';
-
-	var qString="Let $$A="+A.write()+", B="+B.write()+".$$";
+	var qString="Let $$A="+A.write()+"$$ $$B="+B.write()+"$$.";
 	qString += "Compute: <ul style=\"list-style-type: lower-roman;\">";
 	qString += "<li>\\(A+B\\)</li>";
 	qString += "<li>\\(A \\times B\\)</li>";
@@ -1741,6 +1745,16 @@ function makeMatrix2()
 	aString += "</ul>";
 	var qa=[qString,aString];
 	return qa;
+}
+
+function makeMatrix2()
+{
+	return makeMatrixQ(2,6);
+}
+
+function makeMatrix3()
+{
+	return makeMatrixQ(3,4);
 }
 
 function makeTaylor()
@@ -1800,36 +1814,6 @@ function makePolarSketch()
 
 	data = JSON.stringify(fn(parms));
 	var qa=[qString,aString,data];
-	return qa;
-}
-
-function makeMatrix3()
-{
-	var A=new fmatrix(3);A.setrand(4);
-	var B=new fmatrix(3);B.setrand(4);
-	if(B.det().top===0) {B[0][0]=B[0][0].add(1, 0);}
-	if(B.det().top===0) {B[0][1]=B[0][1].add(1, 0);}
-	if(B.det().top===0) {B[0][2]=B[0][2].add(1, 0);}
-	if(B.det().top===0) {B[1][1]=B[1][1].add(1, 0);}
-	if(B.det().top===0) {B[1][2]=B[1][2].add(1, 0);}
-	if(B.det().top===0) {B[2][2]=B[2][2].add(1, 0);}
-	if(B.det().top===0) {alert('Bad math things happening in makeMatrix3(), eek!');} // THIS SHOULDN'T HAPPEN, BUT I'M NOT 100% SURE IT CAN'T
-	var qString="$$\\mbox{Let }A="+A.write()+",$$$$B="+B.write()+".$$";
-	qString+="Compute: <ul style=\"list-style-type: lower-roman;\">";
-	qString += "<li>\\(A+B\\)</li>";
-	qString += "<li>\\(A \\times B\\)</li>";
-	qString += "<li>\\(B^{-1}\\)</li>";
-	qString += "</ul>";
-	var S=A.add(B);
-	var P=A.times(B);
-	var Y=B.inv();
-	var aString = "<ul style=\"list-style-type: lower-roman;\">";
-	aString += "<li>\\(" + S.write() +"\\)</li>";
-	aString += "<li>\\(" + P.write() +"\\)</li>";
-	aString += "<li>\\(" + Y.write() +"\\)</li>";
-	aString += "</ul>";
-	//var aString="(i) "+S.write()+", (ii) "+P.write()+", (iii) "+Y.write();
-	var qa=[qString,aString];
 	return qa;
 }
 
