@@ -2575,7 +2575,7 @@ function makeChiSquare()
 	var nu=row2.length-1-nparms[hyp];
 	aString+="$$\\nu = "+nu+"$$";
 	if(nu<1)
-		throw "Error! \\(\\nu<1\\) - that's not supposed to happen.";
+		throw new Error("makeChiSquare: nu < 1");
 	var critval=tableChi.values[nu-1][p];
 	aString+="Critical region: \\(\\chi^2 >"+critval+"\\)<br />";
 	if(chisq>critval)
