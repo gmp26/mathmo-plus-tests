@@ -1723,7 +1723,7 @@ function makeMatrix2()
 	// This shouldn't ever happen unless the matrix API changes somehow
 	// but let's catch it anyway because infinite loops are annoying to debug
 	if(i >= B.dim)
-		return ['<strong>Error:</strong> makeMatrix2 failed to make a non-singular matrix', ''];
+		throw 'makeMatrix failed to make a non-singular matrix';
 
 	var qString="Let $$A="+A.write()+", B="+B.write()+".$$";
 	qString += "Compute: <ul style=\"list-style-type: lower-roman;\">";
@@ -2591,10 +2591,7 @@ function makeChiSquare()
 	var nu=row2.length-1-nparms[hyp];
 	aString+="$$\\nu = "+nu+"$$";
 	if(nu<1)
-	{
-		aString+="Error! \(\\nu<1\\) - that's not supposed to happen.";
-		return([qString, aString]);
-	}
+		throw "Error! \\(\\nu<1\\) - that's not supposed to happen.";
 	var critval=tableChi.values[nu-1][p];
 	aString+="Critical region: \\(\\chi^2 >"+critval+"\\)<br />";
 	if(chisq>critval)
