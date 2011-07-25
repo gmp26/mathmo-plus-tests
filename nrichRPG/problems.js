@@ -1672,8 +1672,6 @@ function makeMatrixQ(dim,max)
 	for(var i = 0; i < I.dim; i++)
 		I[i][i].set(1,1);
 
-	throw new Error("makeMatrixQ: I don't like you.");
-
 	// A + tI can be singular for at most n values of t
 	// (i.e. eigenvalues of A)
 	// Hence the throw statement should never be encountered, but if the
