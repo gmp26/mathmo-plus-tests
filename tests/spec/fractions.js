@@ -30,6 +30,26 @@ describe("frac", function() {
 	});
 });
 
+describe("toFrac", function() {
+	var n, f, g;
+
+	beforeEach(function() {
+		n = rand(4);
+		f = new frac(n);
+	});
+
+	it("should agree with the frac constructor on numbers", function() {
+		expect(toFrac(n)).equals(f);
+	});
+
+	it("should clone fractions", function() {
+		var g = toFrac(f);
+		expect(g).equals(f);
+		g.add(1, 1);
+		expect(g).not.equals(f);
+	});
+});
+
 describe("fmatrix", function() {
 	var one, zero; // fractions
 	var eye; // identity

@@ -43,8 +43,9 @@ function fpoly(rank)
 	};
 	that.set=function()
 	{
-		that.rank=that.set.arguments.length-1;
-		for(var i=0;i<=that.rank;i++) that[i]=that.set.arguments[i];
+		that.rank= that.set.arguments.length - 1;
+		for(var i = 0; i <= that.rank; i++)
+			that[i] = toFrac(that.set.arguments[i]);
 	};
 	that.setrand=function(maxentry)
 	{
@@ -59,8 +60,7 @@ function fpoly(rank)
 	};
 	that.compute=function(x)
 	{
-		if(typeof(x)!='frac')
-			x=new frac(x, 1);
+		x = toFrac(x);
 		var y=new frac(0, 1);
 		for(var i=0;i<=that.rank;i++)
 			y.add(that[i].top*Math.pow(x.top, i), that[i].bot*Math.pow(x.bot, i));

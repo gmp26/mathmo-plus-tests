@@ -53,12 +53,24 @@ function frac(top,bot)
 	}
 	this.prod=function(c)
 	{
-		if(typeof(c)=='number') c=new frac(c, 1);
+		c = toFrac(c);
 		this.set(this.top*c.top, this.bot*c.bot);
 		this.reduce();
 		return(this);
 	}
 	this.reduce();
+}
+
+// makes a number into a fraction, leaves a fraction unchanged
+function toFrac(n)
+{
+	if(typeof(n) == 'number')
+		return new frac(n, 1);
+	else if(n instanceof frac)
+		return n.clone();
+	else
+		throw new Error('toFrac received ' + typeof(n) +
+			' expecting number or frac');
 }
 
 // returns a random fraction
@@ -101,12 +113,7 @@ function fmatrix(dim)
 			for(var i = 0; i < n; i++)
 			{
 				for(var j = 0; j < n; j++)
-				{
-					if(typeof(args[(i*n)+j]) === "number")
-						this[i][j] = new frac(args[(i*n)+j]);
-					else
-						this[i][j] = args[(i*n)+j].clone();
-				}
+					this[i][j] = toFrac(args[(i*n)+j]);
 			}
 		}
 		else
