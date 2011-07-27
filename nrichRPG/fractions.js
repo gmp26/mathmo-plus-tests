@@ -44,6 +44,7 @@ function frac(top,bot)
 		if(this.top==b.top&&this.bot==b.bot) return 1;
 		else return 0;
 	}
+	// Updates in-place
 	this.add=function(c,d)
 	{
 		if(typeof(d)=='undefined') d=1;
@@ -51,6 +52,7 @@ function frac(top,bot)
 		this.reduce();
 		return(this);
 	}
+	// Updates in-place
 	this.prod=function(c)
 	{
 		c = toFrac(c);
@@ -121,6 +123,7 @@ function fmatrix(dim)
 			throw new Error('Wrong number of elements sent to fmatrix.set()!');
 		}
 	}
+	// Fill with random integers (not fractions)
 	this.setrand=function(maxentry)
 	{
 		for(var i=0;i<this.dim;i++)
@@ -132,6 +135,7 @@ function fmatrix(dim)
 			}
 		}
 	}
+	// Doesn't update in-place, returns a new matrix
 	this.add=function(a)
 	{
 		if(this.dim!=a.dim)
@@ -152,7 +156,8 @@ function fmatrix(dim)
 			return(s);
 		}
 	}
-	this.times=function(a) // Returns This*A, not A*This (they're different!)
+	// Doesn't update in-place, returns a new matrix (this*a, not a*this!)
+	this.times=function(a)
 	{
 		if(this.dim!=a.dim) // since we only deal in square matrices, they have to be the same size
 		{
@@ -193,10 +198,6 @@ function fmatrix(dim)
 		else if(this.dim==1)
 		{
 			return(this[0][0].clone());
-		}
-		else if(this.dim==0)
-		{
-			return(new frac(1, 1));
 		}
 		else
 		{
