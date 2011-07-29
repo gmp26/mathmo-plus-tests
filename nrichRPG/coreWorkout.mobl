@@ -463,7 +463,7 @@ var max:Num = 0;
 // Can return null if there's an error.
 function makeQA(tid:String):QA {
 	var q_and_A:Array<String> = makeProblem(tid);
-	if(q_and_A.length == 0)
+	if(q_and_A == null)
 		return null;
 
 	var qa = QA();
@@ -622,8 +622,9 @@ function makeQA(tid:String):QA {
 		}
 		catch(err)
 		{
-			alert(err.message);
-			return [];
+			console.log(err.message);
+			alert("Question creation failed, please try again!");
+			return null;
 		}
 	};
 </javascript>
