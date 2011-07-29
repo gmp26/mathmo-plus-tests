@@ -101,14 +101,10 @@ describe("LaTeX syntax", function() {
 	for(var k = 0; k < makers.length; k++)
 	{
 		describe(makers[k], function() {
-			var qa;
 			var i = k; // save the value of k in the closure
 
-			beforeEach(function() {
-				qa = window[makers[i]]();
-			});
-
 			it("should produce correct LaTeX", function() {
+				var qa = window[makers[i]]();
 				expect(qa[0]).syntaxCorrect();
 				expect(qa[1]).syntaxCorrect();
 			});

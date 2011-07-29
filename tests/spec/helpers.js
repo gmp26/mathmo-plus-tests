@@ -1,10 +1,6 @@
 describe('gcd', function() {
-	var n, m;
-
-	beforeEach(function() {
-		n = randnz(3);
-		m = randnz(3);
-	});
+	var n = randnz(3);
+	var m = randnz(3);
 
 	// the main idea being if someone refactors they make sure not to
 	// divide by zero
@@ -17,6 +13,7 @@ describe('gcd', function() {
 
 	// ring-theoretic gcd is only defined up to associates, so let's formalise
 	// our intention to always pick the positive one.
+	// notice that gcd is not 0 unless n = m = 0, which they aren't.
 	it('should be positive', function() {
 		expect(gcd(n,m)).toBeGreaterThan(0);
 	});

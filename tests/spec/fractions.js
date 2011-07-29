@@ -7,11 +7,7 @@ beforeEach(function() {
 });
 
 describe("frac", function() {
-	var a;
-
-	beforeEach(function() {
-		a = randfrac(20);
-	});
+	var a = randfrac(20);
 
 	it("should be in lowest terms", function() {
 		expect(gcd(a.top, a.bot)).toEqual(1);
@@ -31,12 +27,9 @@ describe("frac", function() {
 });
 
 describe("toFrac", function() {
-	var n, f, g;
-
-	beforeEach(function() {
-		n = rand(4);
-		f = new frac(n);
-	});
+	var n, f;
+	n = rand(4);
+	f = new frac(n);
 
 	it("should agree with the frac constructor on numbers", function() {
 		expect(toFrac(n)).equals(f);
@@ -56,28 +49,26 @@ describe("fmatrix", function() {
 	var a, b; // random matrices
 	var s; // a singular matrix
 
-	beforeEach(function () {
-		one = new frac(1,1);
-		zero = new frac(0,1);
+	one = new frac(1,1);
+	zero = new frac(0,1);
 
-		eye = new fmatrix(3);
-		eye.set(one,zero,zero,zero,one,zero,zero,zero,one);
+	eye = new fmatrix(3);
+	eye.set(one,zero,zero,zero,one,zero,zero,zero,one);
 
-		a = new fmatrix(3);
-		b = new fmatrix(3);
-		a.setrand(4);
-		b.setrand(4);
+	a = new fmatrix(3);
+	b = new fmatrix(3);
+	a.setrand(4);
+	b.setrand(4);
 
-		var i, p = randfrac(5), q = randfrac(5);
-		s = new fmatrix(3);
-		s.setrand(4);
-		// make the first column a combination of the others
-		for(i = 0; i < 3; i++)
-		{
-			var r = s[i][1].clone().prod(p);
-			s[i][0] = s[i][2].clone().prod(q).add(r.top, r.bot);
-		}
-	});
+	var i, p = randfrac(5), q = randfrac(5);
+	s = new fmatrix(3);
+	s.setrand(4);
+	// make the first column a combination of the others
+	for(i = 0; i < 3; i++)
+	{
+		var r = s[i][1].clone().prod(p);
+		s[i][0] = s[i][2].clone().prod(q).add(r.top, r.bot);
+	}
 
 	describe("identity matrix", function() {
 		it("should have trace = dim", function() {
@@ -125,11 +116,7 @@ describe("fmatrix", function() {
 	});
 
 	describe("transpose", function() {
-		var t;
-
-		beforeEach(function () {
-			t = a.T();
-		});
+		var t = a.T();
 
 		it("should have the same det+trace", function() {
 			expect(t.det()).equals(a.det());
