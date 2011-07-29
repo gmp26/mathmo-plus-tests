@@ -2082,11 +2082,20 @@ function makeContinDistn()
 	tableN.populate();
 	var mu=rand(0, 4);
 	var sigma=rand(1, 4);
-	var x=(mu+((Math.random()-0.5)*6*sigma)).toFixed(1);
+	// like toFixed(1) but always rounding downwards
+	var x = Math.floor(Math.random() * 3 * sigma * 10) / 10;
+	// x is /slightly/ nonuniform because -0 = 0,
+	// but it's not a perceptible effect in general
+	if(rand())
+		x *= -1;
+	x += mu;
 	var qString="The random variable \\(X\\) is normally distributed with mean \\("+mu+"\\) and variance \\("+sigma*sigma+"\\).";
 	qString+="<br />Find \\(\\mathbb{P}(X\\le"+x+")\\)";
 	var z=(x-mu)/sigma;
-	var p=tableN.values[Math.floor(1e3*Math.abs(z))];
+	var index = Math.floor(1e3*Math.abs(z));
+	if(index < 0 || index >= tableN.values.length)
+		throw new Error('makeContinDistn: index ' + index + ' out of range\n' + 'x: ' + x);
+	var p=tableN.values[index];
 	if(z<0) {p=1-p;}
 	var aString="$$"+p.toFixed(3)+"$$";
 	var qa=[qString,aString];
