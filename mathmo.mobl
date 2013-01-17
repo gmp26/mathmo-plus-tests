@@ -68,6 +68,7 @@ control coreTab() {
 }
 
 screen root() {
+
 	script {
 		fetchLanguageBundle("english.json");
 		if(QA.all().count() == 0) {
